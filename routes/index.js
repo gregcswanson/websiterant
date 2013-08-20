@@ -1,11 +1,11 @@
 var nconf = require('nconf');
 
 exports.index = function (req, res) {
-    res.render('index', { title: 'Website Rant' });
+    res.render('index', { title: 'Website Rant', page:'dashboard' });
 };
 
 exports.user = function (req, res) {
-    res.render('user', { title: 'Website Rant' });
+    res.render('user', { title: 'Website Rant', page:'user' });
 };
 
 exports.app = function (req, res) {
@@ -18,6 +18,11 @@ exports.styleguide = function (req, res) {
 
 exports.login = function (req, res) {
     res.render('login', { title: 'Website Rant' });
+};
+
+exports.logout = function (req, res) {
+    req.logout();
+    res.redirect('/');
 };
 
 exports.configuration = function (req, res) {

@@ -22,6 +22,7 @@ nconf.defaults({
 });
 
 var express = require('express')
+  , engine = require('ejs-locals')
   , routes = require('./routes')
   , user = require('./routes/user')
   , api = require('./routes/api')
@@ -66,6 +67,9 @@ passport.deserializeUser(function (id, done) {
 
 var app = express();
 
+// use ejs-locals for all ejs templates:
+app.engine('ejs', engine);
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -91,6 +95,7 @@ app.get('/', ensureAuthenticated, routes.index);
 app.get('/app', ensureAuthenticated, routes.app);
 app.get('/user', ensureAuthenticated, routes.user);
 app.get('/login', routes.login);
+app.get('/logout', routes.logout);
 app.get('/styleguide', routes.styleguide);
 
 app.get('/auth/google', passport.authenticate('google'));
